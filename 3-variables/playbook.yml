@@ -1,0 +1,34 @@
+---
+- name: Premier déploiement (variabilisé)
+  hosts: slave1
+  become: true
+
+  tasks:
+
+    - name: Create a Linux group for the application
+
+    - name: Create a Linux user for the application
+
+    - name: Create a base directory for applications
+
+    - name: Create a base directory for applications
+
+    - name: Create a base directory for logs
+    
+    - name: Create application dir
+
+    - name: Create log dir
+
+    - name: Create application configuration dir
+
+    - name: Copy executable jar
+
+    - name: install java 8
+
+    - name: Install myapp.service systemd unit file
+
+    - name: Install external application.properties
+
+    - name: (re)Start myapp.service
+
+    - name: Wait for the HTTP port to be listening

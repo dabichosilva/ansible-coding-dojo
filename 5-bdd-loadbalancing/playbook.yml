@@ -1,0 +1,16 @@
+---
+- name: "Déploiement DataBase+Load Balancer"
+  hosts: masters
+  become: true
+
+  roles:
+
+  post_tasks:
+
+
+
+- name: Déploiement application
+  hosts: slaves
+  become: true
+
+  roles:

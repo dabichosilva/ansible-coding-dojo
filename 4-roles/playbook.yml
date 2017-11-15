@@ -1,0 +1,7 @@
+---
+- name: Déploiement avec Rôles
+  hosts: slave1
+  become: true
+
+  roles:
+
