@@ -1,27 +1,26 @@
+# TP4 Roles
 
-# TP4 Rôles
+## Goal
 
-## Objectif
+Cut the playbook of the previous TP into several ansible roles.
 
-Découper  le playbook du TP précédent en plusieurs rôles ansible.
-
-## Création de rôle
-1. Créer le répertoire __roles__
-2. Aller dans le répertoire roles
-3. Initialiser la structure du rôle __standalone-webapp__
-```
+## Role creation
+1. Create the __roles__ directory
+2. Go to the roles directory
+3. Initialize the __standalone-webapp__ role structure
+`` `
 ansible-galaxy init standalone-webapp
-```
-4. Lister l'arborescence créée
-```
+`` `
+4. List the created tree
+`` `
 tree -d
-```  
-5. Editer **standalone-webapp/tasks/main.yml** avec le contenu du playbook du TP 3.
-6. Editer **playbook.yml** pour appeler le rôle standalone-webapp
+`` `
+5. Edit ** standalone-webapp / tasks / main.yml ** with the contents of the TP 3 playbook.
+6. Edit ** playbook.yml ** to call the standalone-webapp role
 
 
-### Décomposition en plusieurs rôles
-1. Créer le rôle __java__ et ses tasks
-2. Créer le rôle __prepare__ et ses tasks
-3. Créer le rôle __app-conf__ et ses tasks
-4. Créer le rôle __standalone-webapp__ et ses tasks
+### Decomposition in several roles
+1. Create the role __java__ and its tasks
+2. Create the __prepare__ role and its tasks
+3. Create the __app-conf__ role and its tasks
+4. Create the __standalone-webapp__ role and its tasks

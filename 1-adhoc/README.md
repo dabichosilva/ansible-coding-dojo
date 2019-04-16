@@ -1,25 +1,13 @@
-# Instructions TP1
+# Your first dojo
 
-## Le but de ce premier TP est de valider notre configuration par la bonne exécution de __commandes adhoc__ d'Ansible.
+## The purpose of this dojo is to validate our configuration by the good execution of __commands adhoc__ of Ansible.
 
-Installer Ansible  
-Vérifier qu’il fonctionne : `ansible --version`
+- Configure the `inventory` file so no user/password are requested. 
+- Declare a single group of machines named cluster in which we find all our servers.
 
-Installer vagrant  
-Vérifier qu’il fonctionne: `vagrant --version`
-
-Se placer à la racine du répertoire `coding-dojo-ansible`  
-Démarrer les 3 vms avec `vagrant up`  
-Ajouter votre clé SSH aux 3 vms
-
-En s’appuyant sur le VagrantFile, renseigner le fichier inventory au format ansible (ini).
-
-- Déclarer un unique groupe de machines nommé cluster dans lequel on retrouve les 3 serveurs.
-
-Vérifier que tout fonctionne (au choix):
+Check that everything works (to choose):
 
 - ansible -i inventory cluster -m ping
 - ansible -i inventory all -m ping
 - ansible -i inventory cluster -m shell -a 'ls -la'
 - ansible -i inventory cluster -a "/bin/date"
-- ...

@@ -1,0 +1,48 @@
+---
+- hosts: here
+  tasks:
+  - name: Ping target hosts
+    ping: 
+  - name: Create ansibleSandbox folder
+    file:
+      path: "./ansibleSandbox"
+      mode: 0777
+      state: directory
+  - name: Create a test file (locally) to transfer
+    file:
+      path: "./test.txt"
+      mode: 0777
+      state: touch
+    delegate_to: localhost
+  - name: Transfer test file
+    copy:
+      src: "./test.txt"
+      dest: "./ansibleSandbox/test.txt"
+  - name: download mvn artifact
+    maven_artifact:
+      group_id: com.walmart.det
+      artifact_id: brew-coffee-service
+      extension: jar
+      repository_url: 'https://repository.walmart.com/content/groups/public/'
+      dest: /Users/mdjsilv/eclipse-workspace/my-app/brew-coffee-service.jar
+      timeout: 20
+    delegate_to: localhost
+  - name: start brew coffee service
+    command: "java -jar /Users/mdjsilv/eclipse-workspace/my-app/brew-coffee-service.jar"
+    async: 45
+    poll: 0
+  - pause:
+      seconds: 5
+  - name: validate if jar is running
+    command: "ps -fea | grep brew"
+    register: psResult
+    ignore_errors: true
+  - debug: 
+      msg: "resultCode=[{{psResult.rc}}]"
+  - name: email notification
+    mail:
+      host: smtp-gw1.wal-mart.com
+      subject: "My first Ansible Playbook"
+      body: "Everything worked {{ 'fine' if psResult == '0' else 'bad........' }}!"
+      from: "AnsiblePlaybook"
+      to: "david.silva0@walmart.com"

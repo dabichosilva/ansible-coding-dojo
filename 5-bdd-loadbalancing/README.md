@@ -1,73 +1,72 @@
+# TP5 Database - loadbalancing
 
-# TP5 Base de données - loadbalancing
+## Goal
 
-## Objectif
+* Install and configure a postgresql instance on the host master
+* Install and configure Apache server on host master
+* Deploy __service-person__ application on slave1 and slave2 hosts
 
-* Installer et configurer  une instance postgresql sur le host master
-* Installer et configurer Apache server sur le host master
-* Déployer l'application __service-personne__  sur les hosts slave1 et slave2
-
-## Prérequis
-Installer le rôle **geerlingguy.postgresql** depuis ansible-galaxy
-```
+## Prerequisites
+Install the role ** geerlingguy.postgresql ** since ansible-galaxy
+`` `
 ansible-galaxy install -r requirements.yml
-```
+`` `
 
-##  Installer et configurer postgresql
-1. Ajouter le rôle **geerlingguy.postgresql** au playbook
-2. En utilisant des variables de groupe pour masters
+## Install and configure postgresql
+1. Add the role ** geerlingguy.postgresql ** to the playbook
+2. Using group variables for masters
 
-Utiliser la documentation du plugin postgresql pour 
+Use the postgresql plugin documentation for
 
-1. ajouter les entrées hba suivantes:
+1. add the following hba entries:
 
 
-```
-    local all postgres peer
-    type all all 0.0.0.0/0 trust
-```
+`` `
+    local all postgres peer
+    type all all 0.0.0.0/0 trust
+`` `
 
-2. configurer les options globales pour écouter sur toutes les adresses
+2. configure global options to listen on all addresses
 
-```
+`` `
 listen_addresses *
-```
+`` `
 
-3. créer la database nommée `coding_dojo`
+3. create the database named `coding_dojo`
 
-4. créer le user : `postgresql/postgresql`
+4. create the user: `postgresql / postgresql`
 
-5. Ajouter la **post_task** au playbook
+5. Add the ** post_task ** to the playbook
 
-```
+`` `
 post_tasks:
 
 - postgresql_schema:
-    name: personne
-    database: coding_dojo
-    login_user: postgres
-    login_password: postgres
-    login_host: 192.168.61.10
-    owner: postgres
-    state: present
-```
+    name: person
+    database: coding_dojo
+    login_user: postgres
+    login_password: postgres
+    login_host: 192.168.61.10
+    owner: postgres
+    state: present
+`` `
 
-## Installer et configurer Apache server en reverse proxy
+## Install and configure Apache server in reverse proxy
 
-1. Créer le rôle apache2-reverse-proxy
-2. Compléter les tasks pré-définis
-3. Dans le répertoire  **/templates**, compléter **src.j2**
+1. Create the role apache2-reverse-proxy
+2. Complete the pre-defined tasks
+3. In the ** / templates ** directory, complete ** src.j2 **
 
-```
+`` `
 ProxyPreserveHost On
 ProxyRequests On
 
-<Proxy balancer://mycluster>
-  ...
-</Proxy>
+<Proxy swing: // mycluster>
+  ...
+</ Proxy>
 
-ProxyPass / balancer://mycluster/
-ProxyPassReverse / balancer://mycluster/
-```
+ProxyPass / swing: // mycluster /
+ProxyPassReverse / swing: // mycluster /
+`` `
 
-## Déployer l'application __service-personne__
+## Deploy __service-person__

@@ -1,0 +1,25 @@
+---
+- name: Tercer dojo
+  hosts: cluster
+  become: false
+
+  tasks:
+  - name: download and unzip tomcat
+    unarchive:
+      src: "https://repository.walmart.com/content/repositories/labs_releases/com/walmart/labs/search/devops/packages/apache-tomcat-8.0.26.tar.gz"
+      dest: "~/"
+      remote_src: yes
+  - name: remove gargabe tomcat-users
+    file:
+      state: absent
+      path: "~/apache-tomcat-8.0.26/conf/tomcat-users.xml"
+  - name: update tomcat users with template
+    template:
+      src: tomcat-users.j2
+      dest: "~/apache-tomcat-8.0.26/conf/tomcat-users.xml"
+      mode: 0600
+  - name: deploy demo app in tomcat
+    copy:
+      src: "../ansible-war-demo/target/ansible-war-demo.war"
+      dest: "~/apache-tomcat-8.0.26/webapps"
+

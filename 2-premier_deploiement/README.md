@@ -1,32 +1,32 @@
-# Instructions TP2
+# TP2 instructions
 
-## L'objectif est de réaliser un premier déploiement avec Ansible.
+## The goal is to make a first deployment with Ansible.
 
-1- Editer playbook.yml pour compléter les tâches en utilisant les modules Ansible officiels.
+1- Edit playbook.yml to complete the tasks using the official Ansible modules.
 
 http://docs.ansible.com/ansible/latest/modules_by_category.html
 
-La structure du déploiement est la suivante :
+The deployment structure is as follows:
 
-    /custom/
-    |-- app
-    |   |-- myapp
-    |   |   `-- myapp.jar
-    |   `-- myapp-conf
-    |       `-- application.properties
-    `-- log
-        `-- myapp
-            `-- myapp.log
+     / Custom /
+     | - app
+     | | - myapp
+     | | `- myapp.jar
+     | `- myapp-conf
+     | `- application.properties
+     `- log
+         `- myapp
+             `- myapp.log
 
-Nous déploierons notre service demo sur 'slave1'.
+We will deploy our demo service on 'slave1'.
 
-    ansible-playbook -i inventory playbook.yml
+     ansible-playbook -i inventory playbook.yml
 
-Une fois l'application déployée on peut vérifier qu'elle tourne.
+Once the application is deployed, it can be verified that it is running.
 
-    curl http://192.168.61.11:8080/
+     curl http://192.168.61.11:8080/
 
-l'appel nous renvoie un message "Welcome from default-server"
+the call returns a message "Welcome from default-server"
 
-NB : pour l'installation de l'application en tant que service systemd un fichier est présent dans `files/myapp.service`
-il faudra le déployer dans `/etc/systemd/system/myapp.service`
+NB: for the installation of the application as service systemd a file is present in `files / myapp.service`
+it will need to be deployed in `/ etc / systemd / system / myapp.service`
